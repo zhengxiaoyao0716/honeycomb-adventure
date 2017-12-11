@@ -1,0 +1,51 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "type": "process",
+    "tasks": [
+        {
+            "label": "start",
+            "command": "mix",
+            "windows": {
+                "command": "mix.bat"
+            },
+            "args": [
+                "phx.server"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            }
+        },
+        {
+            "label": "test",
+            "command": "mix",
+            "windows": {
+                "command": "mix.bat"
+            },
+            "args": [
+                "test"
+            ],
+            "problemMatcher": [
+                "$mixCompileError",
+                "$mixCompileWarning",
+                "$mixTestFailure"
+            ],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always"
+            }
+        }
+    ]
+}
