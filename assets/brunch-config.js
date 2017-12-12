@@ -2,7 +2,7 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: 'script/index.js',
 
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
@@ -20,43 +20,54 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css"
+      joinTo: 'style/index.css',
     },
     templates: {
-      joinTo: "js/app.js"
-    }
+      joinTo: 'script/index.js',
+    },
   },
 
   conventions: {
     // This option sets where we should place non-css and non-js assets in.
     // By default, we set this to "/assets/static". Files in this directory
     // will be copied to `paths.public`, which is "priv/static" by default.
-    assets: /^(static)/
+    assets: /^(static)/,
   },
 
   // Phoenix paths configuration
   paths: {
     // Dependencies and current project directories to watch
-    watched: ["static", "css", "js", "vendor"],
+    watched: ['static', 'index.js', 'index.css', 'src'],
     // Where to compile files to
-    public: "../priv/static"
+    public: '../priv/static',
   },
 
   // Configure your plugins
   plugins: {
     babel: {
       // Do not use ES6 compiler in vendor code
-      ignore: [/vendor/]
-    }
+      ignore: [/vendor/],
+      plugins: ['transform-runtime'],
+      presets: ['env', 'react', 'babel-preset-stage-2'],
+    },
+    postcss: {
+      modules: {
+        generateScopedName: '[name]__[local]___[hash:base64:5]',
+      },
+      processors: [
+        require('autoprefixer')(['last 8 versions']),
+        require('csswring')(),
+      ],
+    },
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["js/app"]
-    }
+      'script/index.js': ['index'],
+    },
   },
 
   npm: {
-    enabled: true
-  }
+    enabled: true,
+  },
 };

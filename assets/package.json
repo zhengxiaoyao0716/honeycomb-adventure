@@ -6,13 +6,29 @@
     "watch": "brunch watch --stdin"
   },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "phoenix": "file:../deps/phoenix",
-    "phoenix_html": "file:../deps/phoenix_html"
+    "phoenix_html": "file:../deps/phoenix_html",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
+    "autoprefixer": "^7.2.2",
     "babel-brunch": "6.1.1",
+    "babel-eslint": "^8.0.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "brunch": "2.10.9",
     "clean-css-brunch": "2.10.0",
+    "csswring": "^6.0.2",
+    "eslint": "^4.13.1",
+    "eslint-plugin-react": "^7.5.1",
+    "postcss-brunch": "^2.1.0",
     "uglify-js-brunch": "2.10.0"
   }
 }

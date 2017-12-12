@@ -87,7 +87,34 @@ mix.bat phx.server
 
 
 ### Write pages
-前端页面
+首先要改动的当然就是前段结构。虽然我决定保留并尝试 `Brunch` ，但我可一点都不打算遵循现在的模板开发架构。
+> 当然，不是说这种架构不好，写一些简单的小页面大概是很合适的吧。但这样前端对后端的依赖太重了。<br>
+> 具体来说，我不希望写前端时还要去考虑后端模板渲染适配，不希望还要去后端添加路由、控制器等。<br>
+> 再次强调，这只是我个人爱好。这么做本身并没错，这种传统方式填充数据可以节省很多Ajax请求。<br>
+
+第一步，我们需要引入 `React` 和 `Redux` ， `CSS-Module` 、 `babel` 和 `eslint` 等：
+``` bash
+cd assets
+npm i --save react react-dom redux react-redux react-router-dom babel-runtime
+npm i --save-dev postcss-brunch autoprefixer csswring
+npm i --save-dev babel-preset-react babel-preset-env babel-preset-stage-2 babel-plugin-transform-runtime
+npm i --save-dev eslint eslint-plugin-react babel-eslint
+```
+> F**k，一定要记得 `cd` 啊，安装错目录了。垃圾 `npm` ， `package.json` 都没有还真能继续安装下去，那么 `--save-dev` 参数怎么解释啊，直接忽略了？
+
+第一点五步，随手复制了一份自己以前用的 [.eslintrc](./assets/.eslintrc) ，点开几个 `js` 文件，嗯报错了，说明起作用了。
+
+第一点七五步，把报错的地方改了，用什么双引号啊，js没分号能忍啊。呃，有点多，那么干脆删了吧。
+
+第一点八七五，于是看了看， `socket.js` 还有点价值，其它的都可以删了，同时重新 [配置](./assets/brunch-config.js) 一下目录结构。
+
+第xxxx：F**k，果然踩坑里了。 [重大bug发现](https://github.com/brunch/brunch/issues/1771) ， `Brunch` 的 `require` 实现有问题，导致一使用 `PostCSS` 就玩完儿。
+> 我提交了修复issue，但考虑到不止会不会、何时会采用，且由于实现比较偏门，不知道还有多少问题。<br>
+> 现在就又遇到个，不能直接 `require` 图片等资源获取连接。。。可见 `brunch` 还不太成熟。。。<br>
+> 是继续这个折腾了半天的缺陷明显的 `brunch` ，还是换回惯用的 `roadhog` ，我陷入了深深的忧郁 -_-!!!<br>
+
+F**k，又踩坑了，这次好像是 `phoenix` 的坑，不是换不换 `brunch` 的问题了。
+> 详细原因还没查出来，就是现在这次提交，直接运行，没问题。保存个文件热加载一下，页面没了， `_build` 里的 `index.js` 被删空了。
 
 
 ### Write service
