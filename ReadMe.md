@@ -114,7 +114,8 @@ npm i --save-dev eslint eslint-plugin-react babel-eslint
 > 是继续这个折腾了半天的缺陷明显的 `brunch` ，还是换回惯用的 `roadhog` ，我陷入了深深的忧郁 -_-!!!<br>
 
 F**k，又踩坑了，这次好像是 `phoenix` 的坑，不是换不换 `brunch` 的问题了。
-> 详细原因还没查出来，就是现在这次提交，直接运行，没问题。保存个文件热加载一下，页面没了， `_build` 里的 `index.js` 被删空了。
+> 详细原因还没查出来，就是现在这次提交，直接运行，没问题。保存个文件热加载一下，页面没了， `_build` 里的 `index.js` 被删空了。<br>
+> [看起来是热加载问题](https://github.com/phoenixframework/phoenix_live_reload/issues/67) ，勉强还能继续用下去。嘛，慢慢来吧，希望这些问题能早点修复。<br>
 
 
 ### Write service
