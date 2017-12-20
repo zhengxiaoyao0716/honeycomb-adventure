@@ -77,7 +77,7 @@ mix ecto.create
 mix.bat phx.server
 ```
 
-由于我提交了 [VSCode的任务配置](./.vscode/tasks.json) ，如果你也用 `VSCode` ，那么只需要 `Ctrl + Shift + B` 就能运行。
+由于我提交了 [VSCode的任务配置](./.vscode/tasks.json) ，如果你也用 [VSCode](https://code.visualstudio.com) ，那么只需要 `Ctrl + Shift + B` 就能运行。
 
 然后浏览器打开 [:4000](http://localhost:4000/) ，应该就能看到 `Phoenix` 的欢迎页面了。
 
@@ -93,14 +93,8 @@ mix.bat phx.server
 > 再次强调，这只是我个人爱好。这么做本身并没错，这种传统方式填充数据可以节省很多Ajax请求。<br>
 
 第一步，我们需要引入 `React` 和 `Redux` ， `CSS-Module` 、 `babel` 和 `eslint` 等：
-``` bash
-cd assets
-npm i --save react react-dom redux react-redux react-router-dom babel-runtime
-npm i --save-dev postcss-brunch autoprefixer csswring
-npm i --save-dev babel-preset-react babel-preset-env babel-preset-stage-2 babel-plugin-transform-runtime
-npm i --save-dev eslint eslint-plugin-react babel-eslint
-```
-> F**k，一定要记得 `cd` 啊，安装错目录了。垃圾 `npm` ， `package.json` 都没有还真能继续安装下去，那么 `--save-dev` 参数怎么解释啊，直接忽略了？
+> F**k，安装错目录了， `package.json` 都没有还能安装，那么 `--save-dev` 参数怎么解释啊，直接忽略了？<br>
+> 东西有点多不写出来了，你可以直接 `npm i` 来安装所有，或者自己去 [package.json](./assets/package.json) 里看我具体都装了哪些东西。
 
 第一点五步，随手复制了一份自己以前用的 [.eslintrc](./assets/.eslintrc) ，点开几个 `js` 文件，嗯报错了，说明起作用了。
 
@@ -116,6 +110,7 @@ npm i --save-dev eslint eslint-plugin-react babel-eslint
 F**k，又踩坑了，这次好像是 `phoenix` 的坑，不是换不换 `brunch` 的问题了。
 > 详细原因还没查出来，就是现在这次提交，直接运行，没问题。保存个文件热加载一下，页面没了， `_build` 里的 `index.js` 被删空了。<br>
 > [看起来是热加载问题](https://github.com/phoenixframework/phoenix_live_reload/issues/67) ，勉强还能继续用下去。嘛，慢慢来吧，希望这些问题能早点修复。<br>
+> 问题虽然没完全修复但也算有了临时解决方案，就是先用管理员身份运行一次，详情见那个 issue 。
 
 
 ### Write service

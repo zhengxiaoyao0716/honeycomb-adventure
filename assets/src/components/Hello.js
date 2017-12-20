@@ -1,14 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styles from './Hello.css';
 
-const Hello = ({ text }) => (<div className={styles.Hello}>{text}</div>);
-Hello.propTypes = {
-    text: PropTypes.string.isRequired,
-};
+import { types, connect } from './../redux';
+
+const reverse = (text: string) => ({ type: 'hello.set', payload: { text: Array.from(text).reverse().join('') } });
+
+const Hello = ({ text }, { dispatch }) => (<div className={styles.Hello} onClick={() => dispatch(reverse(text))}>{text}</div>);
+Hello.propTypes = types.hello;
 Hello.contextTypes = {
     store: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired,
 };
-
 export default connect(({ hello: { text } }) => ({ text }))(Hello);
