@@ -121,6 +121,10 @@ F**k，到底多少坑啊！垃圾 `brunch` ，玩票的东西吧？时不时会
 > 擦，还原到初始状态没有复现这个问题，看来是之后添加的插件之类造成的。懒得麻烦了，换掉不成熟的 `brunch` 吧。<br>
 
 
+好吧但我真的不想用回 `Webpack` ，作为代替，我们这次来试试 `parcel` `npm i --save-dev parcel-bundler`
+> 简直nice，名不虚传， `parcel` 就是我想要的，跟 `roadhog` 类似的简单配置，但完全摆脱了 `Webpack` 。
+
+
 ### Write service
 后端服务
 

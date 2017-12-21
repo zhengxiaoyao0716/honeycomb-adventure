@@ -8,8 +8,8 @@ defmodule HoneycombAdventureWeb.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :honeycomb_adventure, gzip: false,
-    only: ~w(style script image asset css fonts images js favicon.ico robots.txt)
+    # only: ~w(index.js index.css favicon.ico mainifest.json robots.txt),
+    at: "/", from: :honeycomb_adventure, gzip: false
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

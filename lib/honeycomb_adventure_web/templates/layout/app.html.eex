@@ -8,12 +8,12 @@
   <link rel="manifest" href="/manifest.json">
   <link rel="shortcut icon" href="/favicon.ico">
   <title>Honeycomb Adventure</title>
-  <link rel="stylesheet" href="<%= static_path(@conn, "/style/index.css") %>">
+  <link rel="stylesheet" href="<%= static_path(@conn, "/index.css") %>">
 </head>
 
 <body>
   <%= render @view_module, @view_template, assigns %>
-  <script src="<%= static_path(@conn, "/script/index.js") %>"></script>
+  <script src="<%= static_path(@conn, "/index.js") %>"></script>
 </body>
 
 </html>
