@@ -1,0 +1,24 @@
+:root {
+    --color-tianyi: #6cf;
+    --color-yanhe: #9FF;
+    --color-aling: #e00;
+    --cover: {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+.Modal {
+    @apply --cover;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-align: center;
+}
+.Banner {
+    background: var(--color-tianyi);
+    width: 100%;
+    margin-top: 150px;
+    color: #fff;
+    font-size: 120px;
+    text-align: center;
+    font-family: arial,tahoma,'Microsoft Yahei','\5b8b\4f53',sans-serif;
+}

@@ -1,0 +1,74 @@
+:root {
+    --color-milli: #6cf;
+    --color-second: #9FF;
+    --color-minute: #666;
+}
+.Clock {
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+.Clock::before, .Clock::after, .Clock>* {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.Clock::before {
+    animation:
+        clock-flip 1s steps(1, start) infinite reverse,
+        clock-anti 1s steps(1, start) 0.5s infinite alternate-reverse;
+    content: "";
+}
+.Clock::after {
+    animation:
+        clock-flip 1s steps(1, start) infinite,
+        clock-anti 1s steps(1, start) infinite alternate-reverse;
+    content: "";
+}
+.Clock .Milli {
+    animation:
+        clock-rotate 1s linear infinite,
+        clock-anti 2s steps(1, start) infinite;
+}
+.Clock .Second, .Clock .Minute {
+    width: 50%;
+    z-index: 1;
+    border-right: 1px solid;
+    transform-origin: 100% 100%;
+    animation: clock-rotate linear infinite;
+}
+.Clock .Second {
+    height: 40%;
+    top: 10%;
+    border-color: var(--color-second);
+    animation-duration: 60s;
+}
+.Clock .Minute {
+    height: 30%;
+    top: 20%;
+    border-color: var(--color-minute);
+    animation-duration: 3660s;
+}
+
+@keyframes clock-rotate {
+    100% { transform: rotate(360deg); }
+}
+@keyframes clock-flip {
+    50% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
+@keyframes clock-anti {
+    50% {
+        background: linear-gradient(90deg, #fff 50%, rgba(0, 0, 0, 0) 50%);
+    }
+    100% {
+        background: linear-gradient(90deg, var(--color-milli) 50%, rgba(0, 0, 0, 0) 50%);
+    }
+}
