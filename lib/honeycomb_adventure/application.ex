@@ -14,6 +14,7 @@ defmodule HoneycombAdventure.Application do
       supervisor(HoneycombAdventureWeb.Endpoint, []),
       # Start your own worker by calling: HoneycombAdventure.Worker.start_link(arg1, arg2, arg3)
       # worker(HoneycombAdventure.Worker, [arg1, arg2, arg3]),
+      supervisor(Absinthe.Subscription, [HoneycombAdventureWeb.Endpoint]),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

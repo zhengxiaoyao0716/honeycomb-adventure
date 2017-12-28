@@ -13,15 +13,22 @@ defmodule HoneycombAdventureWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api" do
+    pipe_through :api
+
+    plug = if Mix.env == :dev do
+      Absinthe.Plug.GraphiQL
+    else
+      Absinthe.Plug
+    end
+    forward "/", plug,
+      schema: HoneycombAdventureWeb.Schema,
+      socket: HoneycombAdventureWeb.UserSocket
+  end
+
   scope "/", HoneycombAdventureWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
     get "/*page", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", HoneycombAdventureWeb do
-  #   pipe_through :api
-  # end
 end

@@ -1,5 +1,6 @@
 defmodule HoneycombAdventureWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :honeycomb_adventure
+  use Absinthe.Phoenix.Endpoint
 
   socket "/socket", HoneycombAdventureWeb.UserSocket
 

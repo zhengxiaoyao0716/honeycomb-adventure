@@ -126,12 +126,57 @@ F**k，到底多少坑啊！垃圾 `brunch` ，玩票的东西吧？时不时会
 npm i --save-dev parcel-bundler
 ```
 > 简直nice，名不虚传， `parcel` 就是我想要的，跟 `roadhog` 类似的简单配置，但完全摆脱了 `Webpack` 。<br>
-> 收回， `parcel` 也不怎么成熟，没有sourceMap就算了， [CSS-Module经常编译报错](https://github.com/parcel-bundler/parcel/issues/378) ，还是考虑 `Roadhog` 吧。
+> 收回， `parcel` 也不怎么成熟，没有sourceMap就算了， [CSS-Module经常编译报错](https://github.com/parcel-bundler/parcel/issues/378) ，还是考虑 `Roadhog` 吧。<br>
+
+然而切换 `roadhog` 失败了。。。暂时先用着 `parcel` 吧，没办法，实在懒的折腾了。。。
+> 因为突然发现 `roadhog` 并不支持 `watch` 模式，要换 `roadhog` 的话，就得采取以前的前后端分别开发的流程了。<br>
+> 不是说那样不好，但不适合个人项目快速构建，有悖于我的初衷。我认可前后端分离架构，但不认可前后端分离开发。<br>
+> 前端用各种proxy去模拟后端，后端用各种单元用例去模拟前端，然后双方各自开发，最后再集成到一起，我觉得没必要。<br>
+> 只要做到写前端不用考虑后端代码，写后端不用考虑前端代码就够了，本身开发中还是可以直接使用对方的服务的。
 
 
 ### Write service
-后端服务
+前端踩坑先告一段落，让我们开始后端吧，这才是主要目的。首先呢，我们需要部署 `GraphQL` 来提供服务：
+> 我们将选择 [absinthe-graphql](https://github.com/absinthe-graphql) ，相比于 [graphql-elixir](https://github.com/graphql-elixir) ，这个库封装更加高级，文档也更加齐全。
+
+遵循 [官方指南](https://hexdocs.pm/absinthe/plug-phoenix.html) ，我们直接在 [mix.exs](./mix.esx) 的 `deps` 里添加 `absinthe_plug` 依赖 `{:absinthe_plug, "~> 1.4"}`
+> [absinthe_plug](https://github.com/absinthe-graphql/absinthe_plug) 是 `Absinthe` 的插件，用来提供 `HTTP` 以及 [GraphiQL](https://github.com/graphql/graphiql) （一个基于浏览器的交互实验台）支持。<br>
+> 官方指引里说还要添加 `poison` 以提供 `JSON` 支持，但我觉得没必要，因为这个库事实上早已引入了。
+
+然后编辑项目的 [Web路由](./lib/honeycomb_adventure_web/router.ex) ，为 `Absinthe.Plug` 添加一条路由，别忘了指定你的 `Schema` 模块。
+> 这里我在开发环境下做了个特殊处理，将路由控制器换成了 `Absinthe.Plug.GraphiQL` ，以支持 `GraphiQL` 。<br>
+> 如果后端只打算提供 `GraphQL` 服务，你可以简单的把插件注入到 [Web入口](./lib/honeycomb_adventure_web/endpoint.ex) 来全局应用插件。
+
+最后，编个简单的 [Schema](./lib/honeycomb_adventure_web/schema.ex) ，主要看看里面的 `query` 和 `object` 的写法吧，没什么难的。
+> 因为写这段时我事实上已经顺手把 [下一节](#Use-socket) 弄完了，看起来复杂的话就参考 [官方指引](https://hexdocs.pm/absinthe/schemas.html#content) 吧。<br>
+> 关于数据表模型 [HoneycombAdventure.User](./lib/honeycomb_adventure/user.ex) 的创建于用法等参见 [这里 ](https://hexdocs.pm/phoenix/ecto.html#content) ，应该也没什么难理解的吧。
+
+然后安装依赖，跑起项目，打开浏览器，访问 [GraphiQL实验台](localhost:4000/api) ，没问题的话就可以试试拉点数据了。
 
 
 ### Use socket
-使用WebSocket
+单纯的 `Http` 请求-响应太落后了，我们当然要用 `WebSocket` ！并且仍然要加上 `GraphQL` ！
+> 其实 `Phoenix` 已经默认帮我们把 `WebSocket` 准备好了，我们主要来看看怎么引入 `GraphQL` 。
+
+与上一节类似，先安装 [absinthe_phoenix](https://github.com/absinthe-graphql/absinthe_phoenix) 依赖以提供 `WebSocket` 的 `GraphQL` 支持，官方指引 [在这](https://hexdocs.pm/absinthe/subscriptions.html#content) 。
+
+然后在 [application.ex](./lib/honeycomb_adventure/application.ex) 里注册 `Absinthe.Subscription` ，以在应用启动时启动 `Absinthe` 服务。
+
+在 [Web入口](./lib/honeycomb_adventure_web/endpoint.ex) 里添加一行 `use Absinthe.Phoenix.Endpoint` 以引入 `absinthe_phoenix` 。
+
+在 [Socket](./lib/honeycomb_adventure_web/channels/user_socket.ex) 里引入 `Absinthe.Phoenix.Socket` 并指定 `Schema` ，复用上一节的就好了。
+
+在 [Web路由](./lib/honeycomb_adventure_web/router.ex) 上一节添加的路由后，再加一行，指定 `socket` 模块，以便 `GraphiQL` 访问 `WebSocket` 。
+
+最后，编辑 [Schema](./lib/honeycomb_adventure_web/schema.ex) ，添加 `mutation` 和 `subscription` ，分别用于发布和订阅消息，具体参考 [这里](https://hexdocs.pm/absinthe/subscriptions.html#schema)
+> 这样上一节让大家跳过的地方应该就能看懂了吧？有没有觉得这个地方思路和 `Redux` 真的挺像？
+
+一切就绪，再次跑起应用，访问 [GraphiQL实验台](localhost:4000/api) ，这次开俩窗口，试试订阅与发布消息吧。
+
+
+### Access manager
+权限管理
+
+
+### Client connect
+客户端连接

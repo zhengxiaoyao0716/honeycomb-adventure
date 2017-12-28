@@ -1,5 +1,7 @@
 defmodule HoneycombAdventureWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket,
+    schema: HoneycombAdventureWeb.Schema
 
   ## Channels
   # channel "room:*", HoneycombAdventureWeb.RoomChannel

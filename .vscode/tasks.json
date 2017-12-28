@@ -22,7 +22,7 @@
                 "$mixCompileWarning"
             ],
             "presentation": {
-                "reveal": "silent"
+                "reveal": "always"
             }
         },
         {
