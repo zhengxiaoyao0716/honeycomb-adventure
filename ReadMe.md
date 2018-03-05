@@ -129,10 +129,11 @@ npm i --save-dev parcel-bundler
 > 收回， `parcel` 也不怎么成熟，没有sourceMap就算了， [CSS-Module经常编译报错](https://github.com/parcel-bundler/parcel/issues/378) ，还是考虑 `Roadhog` 吧。<br>
 
 然而切换 `roadhog` 失败了。。。暂时先用着 `parcel` 吧，没办法，实在懒的折腾了。。。
-> 因为突然发现 `roadhog` 并不支持 `watch` 模式，要换 `roadhog` 的话，就得采取以前的前后端分别开发的流程了。<br>
+> ~~因为突然发现 `roadhog` 并不支持 `watch` 模式~~ ，要换 `roadhog` 的话，就得采取以前的前后端分别开发的流程了。<br>
 > 不是说那样不好，但不适合个人项目快速构建，有悖于我的初衷。我认可前后端分离架构，但不认可前后端分离开发。<br>
 > 前端用各种proxy去模拟后端，后端用各种单元用例去模拟前端，然后双方各自开发，最后再集成到一起，我觉得没必要。<br>
-> 只要做到写前端不用考虑后端代码，写后端不用考虑前端代码就够了，本身开发中还是可以直接使用对方的服务的。
+> 只要做到写前端不用考虑后端代码，写后端不用考虑前端代码就够了，本身开发中还是可以直接使用对方的服务的。<br>
+> `roadhog` 原来是支持 `watch` 的，等什么时候有空了再试试切到 `roadhog` 上吧，现在先继续后面的。
 
 
 ### Write service
@@ -174,8 +175,8 @@ npm i --save-dev parcel-bundler
 一切就绪，再次跑起应用，访问 [GraphiQL实验台](localhost:4000/api) ，这次开俩窗口，试试订阅与发布消息吧。
 
 
-### Access manager
-权限管理
+### Account manager
+~~ 加密算法选择 `Argon2` ，添加这个库依赖以支持： [comeonin](https://github.com/riverrun/comeonin) ，详细环境要求 [在这里](https://github.com/riverrun/comeonin/wiki/Requirements) ~~
 
 
 ### Client connect

@@ -33,6 +33,8 @@ defmodule HoneycombAdventure.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:comeonin, "~> 4.0"},
+      {:argon2_elixir, "~> 1.2"},
       {:absinthe_phoenix, "~> 1.4.0"},
       {:absinthe_plug, "~> 1.4.0"},
       {:phoenix, "~> 1.3.0"},
